@@ -1,0 +1,352 @@
+/* ============================================================
+   GORRÉ — Brand layer for Dawn
+   Palette "Midnight Prestige": Midnight Navy, Brushed Gold, Ivory.
+   Fonts: Bebas Neue (headings) + Barlow (body) — Google Fonts.
+   Loaded after base.css so these overrides win.
+   ============================================================ */
+
+:root {
+  --gorre-navy: #0C1829;
+  --gorre-navy-deep: #0A0B0D;
+  --gorre-gold: #B89050;
+  --gorre-gold-soft: #CDA463;
+  --gorre-ivory: #EDE8DF;
+  --gorre-ivory-soft: #F6F2EA;
+  --gorre-line: rgba(184, 144, 80, 0.35);
+
+  /* Override Dawn typography */
+  --font-heading-family: "Bebas Neue", "Barlow", -apple-system, "Segoe UI", sans-serif;
+  --font-heading-weight: 400;
+  --font-heading-style: normal;
+  --font-body-family: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
+}
+
+/* Headings: Bebas needs a touch more tracking + line-height */
+h1, h2, h3, h4, h5,
+.h0, .h1, .h2, .h3, .h4, .h5,
+.title, .card__heading, .product__title {
+  font-family: var(--font-heading-family);
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+body { font-family: var(--font-body-family); }
+
+/* ---- Gold accents (kept tasteful, not everywhere) ---- */
+a:hover { color: var(--gorre-gold); }
+
+/* Primary buttons: navy with gold hover */
+.button:not(.button--secondary),
+.shopify-payment-button__button--unbranded,
+.cart__dynamic-checkout-buttons .shopify-payment-button__button {
+  --color-button: 12, 24, 41;
+  --color-button-text: 237, 232, 223;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.button:not(.button--secondary):hover {
+  --color-button: 184, 144, 80;
+  --color-button-text: 12, 24, 41;
+}
+.button--secondary {
+  border-color: var(--gorre-navy);
+}
+.button--secondary:hover { color: var(--gorre-gold); border-color: var(--gorre-gold); }
+
+/* Price + sale accents */
+.price__sale .price-item--sale,
+.price--on-sale .price-item--sale { color: var(--gorre-navy); }
+.badge,
+.price__badge-sale {
+  background: var(--gorre-gold);
+  color: var(--gorre-navy);
+  border-color: var(--gorre-gold);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* Focus state in brand gold */
+*:focus-visible { outline-color: var(--gorre-gold); }
+
+/* ============================================================
+   GORRÉ HEADER  (custom section .gorre-header)
+   ============================================================ */
+.gorre-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--gorre-navy);
+  color: var(--gorre-ivory);
+  border-bottom: 2px solid var(--gorre-gold);
+}
+.gorre-header a { color: var(--gorre-ivory); text-decoration: none; }
+
+.gorre-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 84px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* Logo */
+.gorre-header__logo { display: inline-flex; align-items: center; flex: 0 0 auto; }
+.gorre-header__logo img {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+/* Second row: centered category nav */
+.gorre-header__navrow {
+  border-top: 1px solid rgba(184, 144, 80, 0.22);
+}
+.gorre-header__navrow .page-width {
+  display: flex;
+  justify-content: center;
+}
+.gorre-nav > ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem;
+}
+.gorre-nav__item { position: relative; }
+.gorre-nav__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 0.9rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.45rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--gorre-ivory);
+  position: relative;
+}
+.gorre-nav__top .gorre-caret { width: 9px; height: 9px; transition: transform .2s ease; opacity: .8; }
+.gorre-nav__top::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem; right: 0.9rem; bottom: 0.5rem;
+  height: 2px;
+  background: var(--gorre-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .22s ease;
+}
+.gorre-nav__item:hover .gorre-nav__top,
+.gorre-nav__item:focus-within .gorre-nav__top { color: #fff; }
+.gorre-nav__item:hover .gorre-nav__top::after,
+.gorre-nav__item:focus-within .gorre-nav__top::after { transform: scaleX(1); }
+.gorre-nav__item:hover .gorre-caret,
+.gorre-nav__item:focus-within .gorre-caret { transform: rotate(180deg); }
+
+.gorre-nav__top--highlight { color: var(--gorre-gold); }
+.gorre-nav__top--highlight::after { background: var(--gorre-gold); }
+
+/* Mega panel */
+.gorre-mega {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  min-width: 260px;
+  max-width: 92vw;
+  background: #fff;
+  color: var(--gorre-navy);
+  border: 1px solid rgba(12,24,41,0.08);
+  border-top: 3px solid var(--gorre-gold);
+  box-shadow: 0 24px 48px -24px rgba(12,24,41,0.45);
+  padding: 1.1rem 1.25rem 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  z-index: 70;
+}
+.gorre-nav__item:hover .gorre-mega,
+.gorre-nav__item:focus-within .gorre-mega {
+  opacity: 1; visibility: visible; transform: translate(-50%, 0);
+}
+.gorre-mega__desc {
+  font-size: 1.25rem;
+  color: rgba(12,24,41,0.55);
+  margin: 0 0 0.75rem;
+  max-width: 30ch;
+}
+.gorre-mega__list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.1rem 2rem;
+}
+.gorre-mega--cols .gorre-mega__list { grid-template-columns: 1fr 1fr; }
+.gorre-mega__list a {
+  display: block;
+  color: var(--gorre-navy);
+  padding: 0.5rem 0.25rem;
+  font-size: 1.45rem;
+  border-radius: 3px;
+  position: relative;
+  transition: color .15s ease, padding .15s ease;
+}
+.gorre-mega__list a:hover { color: var(--gorre-gold); padding-left: 0.6rem; }
+.gorre-mega__all {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: 0.85rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(12,24,41,0.1);
+  font-family: var(--font-heading-family);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  color: var(--gorre-navy);
+}
+.gorre-mega__all:hover { color: var(--gorre-gold); }
+
+/* Header actions (search / account / cart) */
+.gorre-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+.gorre-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  color: var(--gorre-ivory);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background-color .2s ease, color .2s ease;
+}
+.gorre-icon-btn:hover { background: rgba(237,232,223,0.10); color: var(--gorre-gold); }
+.gorre-icon-btn svg { width: 22px; height: 22px; }
+.gorre-cart__count {
+  position: absolute;
+  top: 2px; right: 0px;
+  min-width: 18px; height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--gorre-gold);
+  color: var(--gorre-navy);
+  font-family: var(--font-body-family);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* Hamburger (mobile only) */
+.gorre-burger {
+  display: none;
+  width: 42px; height: 42px;
+  align-items: center; justify-content: center;
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--gorre-ivory);
+}
+.gorre-burger svg { width: 26px; height: 26px; }
+
+/* ---------- Mobile drawer ---------- */
+.gorre-drawer-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,11,13,0.55);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s;
+  z-index: 80;
+}
+.gorre-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: min(86vw, 360px);
+  background: var(--gorre-navy);
+  color: var(--gorre-ivory);
+  transform: translateX(-100%);
+  transition: transform .28s ease;
+  z-index: 90;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.gorre-header.is-open .gorre-drawer { transform: translateX(0); }
+.gorre-header.is-open .gorre-drawer-overlay { opacity: 1; visibility: visible; }
+
+.gorre-drawer__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(237,232,223,0.12);
+}
+.gorre-drawer__head img { height: 40px; width: auto; }
+.gorre-drawer__close {
+  background: transparent; border: 0; color: var(--gorre-ivory);
+  width: 40px; height: 40px; cursor: pointer;
+}
+.gorre-drawer__close svg { width: 22px; height: 22px; }
+
+.gorre-drawer__list { list-style: none; margin: 0; padding: 0.5rem 0 2rem; }
+.gorre-drawer__list > li { border-bottom: 1px solid rgba(237,232,223,0.10); }
+.gorre-drawer details > summary {
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.4rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.7rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.gorre-drawer details > summary::-webkit-details-marker { display: none; }
+.gorre-drawer summary .gorre-caret { width: 11px; height: 11px; transition: transform .2s ease; }
+.gorre-drawer details[open] summary .gorre-caret { transform: rotate(180deg); }
+.gorre-drawer__sub { list-style: none; margin: 0; padding: 0 0 0.6rem; }
+.gorre-drawer__sub a {
+  display: block;
+  padding: 0.6rem 1.4rem 0.6rem 1.9rem;
+  font-size: 1.5rem;
+  color: rgba(237,232,223,0.82);
+}
+.gorre-drawer__sub a:hover { color: var(--gorre-gold); }
+.gorre-drawer__solo {
+  display: block;
+  padding: 1rem 1.4rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.7rem; letter-spacing: .05em; text-transform: uppercase;
+}
+.gorre-drawer__solo--highlight { color: var(--gorre-gold); }
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 989px) {
+  .gorre-header__navrow { display: none; }
+  .gorre-burger { display: inline-flex; justify-self: start; }
+  .gorre-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 64px;
+  }
+  .gorre-header__burger-wrap { justify-self: start; }
+  .gorre-header__logo { justify-self: center; }
+  .gorre-header__logo img { height: 40px !important; }
+  .gorre-header__actions { margin-left: 0; justify-self: end; }
+}
+@media screen and (min-width: 990px) {
+  .gorre-burger, .gorre-header__burger-wrap { display: none; }
+  .gorre-drawer, .gorre-drawer-overlay { display: none; }
+}

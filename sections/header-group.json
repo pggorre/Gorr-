@@ -1,1 +1,138 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"Welcome to our store","link":""}}},"block_order":["announcement-bar-0"],"settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-1","show_line_separator":true,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","settings":{"logo_position":"middle-left","mobile_logo_position":"center","menu":"main-menu","menu_type_desktop":"dropdown","sticky_header_type":"on-scroll-up","show_line_separator":true,"color_scheme":"scheme-1","menu_color_scheme":"scheme-1","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":20,"padding_bottom":20}}},"order":["announcement-bar","header"]}
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Gratis verzending vanaf €75 · Gratis WAR30 challenge — BUILD WITH DISCIPLINE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["announcement-bar-0"],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-5",
+        "show_line_separator": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "gorre-header",
+      "blocks": {
+        "cat-kleding": {
+          "type": "category",
+          "settings": {
+            "title": "Kleding",
+            "link": "/collections/kleding",
+            "description": "Van thuis tot netjes zakelijk — plus sport: hardlopen, judo, boksen en gym.",
+            "sublinks": "Heren | /collections/heren\nDames | /collections/dames\nKinderen | /collections/kinderen\nSport | /collections/sportkleding",
+            "highlight": false
+          }
+        },
+        "cat-supplementen": {
+          "type": "category",
+          "settings": {
+            "title": "Supplementen",
+            "link": "/collections/supplementen",
+            "description": "Eigen-merk supplementen — concurrerend geprijsd, clean label.",
+            "sublinks": "Proteïne | /collections/proteine\nPre-workout | /collections/pre-workout\nVitamine D, C & A | /collections/vitamines\nCreatine | /collections/creatine\nMineralen | /collections/mineralen\nRepen | /collections/repen\nDranken | /collections/dranken",
+            "highlight": false
+          }
+        },
+        "cat-accessoires": {
+          "type": "category",
+          "settings": {
+            "title": "Sport Accessoires",
+            "link": "/collections/sport-accessoires",
+            "description": "Alles voor je training: van shakers tot lifting straps.",
+            "sublinks": "Shake flessen | /collections/shake-flessen\nTassen | /collections/tassen\nWeerstandsbanden | /collections/weerstandsbanden\nLifting straps | /collections/lifting-straps\nSport handdoeken | /collections/sport-handdoeken",
+            "highlight": false
+          }
+        },
+        "cat-digitaal": {
+          "type": "category",
+          "settings": {
+            "title": "Digitaal & Coaching",
+            "link": "/collections/digitaal-coaching",
+            "description": "Trainingsschema's, e-books, coaching en de GORRÉ-app.",
+            "sublinks": "Trainingsschema's | /collections/trainingsschemas\nE-book Discipline | /collections/ebook-discipline\nCoaching abonnement | /collections/coaching\nSportapp | /collections/sportapp\nOnline cursus | /collections/online-cursus",
+            "highlight": false
+          }
+        },
+        "cat-horloges": {
+          "type": "category",
+          "settings": {
+            "title": "Horloges",
+            "link": "/collections/horloges",
+            "description": "Sport, luxe en zwem — premium aan je pols.",
+            "sublinks": "Sporthorloges | /collections/sporthorloges\nLuxe horloges | /collections/luxe-horloges\nZwemhorloges | /collections/zwemhorloges",
+            "highlight": false
+          }
+        },
+        "cat-lifestyle": {
+          "type": "category",
+          "settings": {
+            "title": "Lifestyle",
+            "link": "/collections/lifestyle",
+            "description": "Klein en premium: van notitieboek tot geurkaars.",
+            "sublinks": "Notitieboek | /collections/notitieboek\nPosters | /collections/posters\nGeurkaars | /collections/geurkaars\nSleutelhangers | /collections/sleutelhangers",
+            "highlight": false
+          }
+        },
+        "cat-bundels": {
+          "type": "category",
+          "settings": {
+            "title": "Bundels",
+            "link": "/collections/bundels",
+            "description": "Combinatiepakketten — meer sparen, alles tegen voordeel.",
+            "sublinks": "",
+            "highlight": false
+          }
+        },
+        "cat-war30": {
+          "type": "category",
+          "settings": {
+            "title": "WAR30",
+            "link": "https://gorrista.github.io/gorristawar30",
+            "description": "",
+            "sublinks": "",
+            "highlight": true
+          }
+        },
+        "cat-premium": {
+          "type": "category",
+          "settings": {
+            "title": "Premium",
+            "link": "/collections/premium",
+            "description": "",
+            "sublinks": "",
+            "highlight": true
+          }
+        }
+      },
+      "block_order": [
+        "cat-kleding",
+        "cat-supplementen",
+        "cat-accessoires",
+        "cat-digitaal",
+        "cat-horloges",
+        "cat-lifestyle",
+        "cat-bundels",
+        "cat-war30",
+        "cat-premium"
+      ],
+      "settings": {
+        "logo_height": 56
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

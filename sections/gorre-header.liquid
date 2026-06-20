@@ -1,0 +1,178 @@
+{{ 'gorre-brand.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign logo_h = section.settings.logo_height | default: 56
+-%}
+
+{%- comment %} ===== Row 1: hamburger · logo · actions ===== {%- endcomment -%}
+<div class="gorre-header__inner page-width">
+
+  <span class="gorre-header__burger-wrap">
+    <button type="button" class="gorre-burger" aria-label="Menu openen" data-gorre-open>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </span>
+
+  <a href="{{ routes.root_url }}" class="gorre-header__logo" aria-label="{{ shop.name }} — home">
+    <img src="{{ 'gorre-logo.png' | asset_url }}"
+         alt="{{ shop.name | default: 'GORRÉ' }}"
+         width="840" height="485"
+         style="height:{{ logo_h }}px"
+         loading="eager">
+  </a>
+
+  <div class="gorre-header__actions">
+    <a class="gorre-icon-btn" href="{{ routes.search_url }}" aria-label="Zoeken">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </a>
+    {%- if shop.customer_accounts_enabled -%}
+      <a class="gorre-icon-btn" href="{{ routes.account_url }}" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+    {%- endif -%}
+    <a class="gorre-icon-btn gorre-cart" href="{{ routes.cart_url }}" aria-label="Winkelwagen">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 7h13l-1.2 9.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 7a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="2"/></svg>
+      {%- if cart != empty and cart.item_count > 0 -%}
+        <span class="gorre-cart__count">{{ cart.item_count }}</span>
+      {%- endif -%}
+    </a>
+  </div>
+</div>
+
+{%- comment %} ===== Row 2: centered category navigation ===== {%- endcomment -%}
+<div class="gorre-header__navrow">
+  <div class="page-width">
+    <nav class="gorre-nav" aria-label="Hoofdmenu">
+      <ul>
+        {%- for block in section.blocks -%}
+          {%- assign sub_raw = block.settings.sublinks | strip -%}
+          {%- assign rows = sub_raw | newline_to_br | split: '<br />' -%}
+          {%- assign sub_count = rows | size -%}
+          {%- assign has_sub = false -%}
+          {%- if sub_raw != blank -%}{%- assign has_sub = true -%}{%- endif -%}
+          {%- assign is_ext = false -%}
+          {%- if block.settings.link contains '://' -%}{%- assign is_ext = true -%}{%- endif -%}
+
+          <li class="gorre-nav__item" {{ block.shopify_attributes }}>
+            <a class="gorre-nav__top{% if block.settings.highlight %} gorre-nav__top--highlight{% endif %}"
+               href="{{ block.settings.link | default: '#' }}"
+               {% if is_ext %}target="_blank" rel="noopener"{% endif %}>
+              {{ block.settings.title | escape }}
+              {%- if has_sub -%}
+                <svg class="gorre-caret" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {%- endif -%}
+            </a>
+
+            {%- if has_sub -%}
+              <div class="gorre-mega{% if sub_count > 5 %} gorre-mega--cols{% endif %}">
+                {%- if block.settings.description != blank -%}
+                  <p class="gorre-mega__desc">{{ block.settings.description | escape }}</p>
+                {%- endif -%}
+                <ul class="gorre-mega__list">
+                  {%- for row in rows -%}
+                    {%- assign parts = row | split: '|' -%}
+                    {%- assign s_label = parts[0] | strip -%}
+                    {%- assign s_url = parts[1] | strip -%}
+                    {%- if s_label != blank -%}
+                      <li><a href="{{ s_url | default: '#' }}">{{ s_label | escape }}</a></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+                {%- if block.settings.link != blank -%}
+                  <a class="gorre-mega__all" href="{{ block.settings.link }}">Bekijk alles
+                    <svg viewBox="0 0 16 12" width="14" fill="none" aria-hidden="true"><path d="M1 6h13M9 1l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+{%- comment %} ===== Mobile drawer ===== {%- endcomment -%}
+<div class="gorre-drawer-overlay" data-gorre-close></div>
+<aside class="gorre-drawer" aria-label="Mobiel menu">
+  <div class="gorre-drawer__head">
+    <img src="{{ 'gorre-logo.png' | asset_url }}" alt="{{ shop.name | default: 'GORRÉ' }}" width="840" height="485">
+    <button type="button" class="gorre-drawer__close" aria-label="Menu sluiten" data-gorre-close>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <ul class="gorre-drawer__list">
+    {%- for block in section.blocks -%}
+      {%- assign sub_raw = block.settings.sublinks | strip -%}
+      {%- assign rows = sub_raw | newline_to_br | split: '<br />' -%}
+      {%- assign is_ext = false -%}
+      {%- if block.settings.link contains '://' -%}{%- assign is_ext = true -%}{%- endif -%}
+      <li>
+        {%- if sub_raw != blank -%}
+          <details>
+            <summary>{{ block.settings.title | escape }}
+              <svg class="gorre-caret" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <ul class="gorre-drawer__sub">
+              {%- if block.settings.link != blank -%}<li><a href="{{ block.settings.link }}">Alle {{ block.settings.title | escape }}</a></li>{%- endif -%}
+              {%- for row in rows -%}
+                {%- assign parts = row | split: '|' -%}
+                {%- assign s_label = parts[0] | strip -%}
+                {%- assign s_url = parts[1] | strip -%}
+                {%- if s_label != blank -%}<li><a href="{{ s_url | default: '#' }}">{{ s_label | escape }}</a></li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- else -%}
+          <a class="gorre-drawer__solo{% if block.settings.highlight %} gorre-drawer__solo--highlight{% endif %}"
+             href="{{ block.settings.link | default: '#' }}" {% if is_ext %}target="_blank" rel="noopener"{% endif %}>
+            {{ block.settings.title | escape }}
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</aside>
+
+<script>
+  (function () {
+    var root = document.currentScript.closest('.gorre-header') || document.querySelector('.gorre-header');
+    if (!root || root.dataset.gorreBound) return;
+    root.dataset.gorreBound = '1';
+    function open() { root.classList.add('is-open'); document.documentElement.style.overflow = 'hidden'; }
+    function close() { root.classList.remove('is-open'); document.documentElement.style.overflow = ''; }
+    root.querySelectorAll('[data-gorre-open]').forEach(function (b) { b.addEventListener('click', open); });
+    root.querySelectorAll('[data-gorre-close]').forEach(function (b) { b.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "GORRÉ header",
+  "tag": "header",
+  "class": "gorre-header",
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "range", "id": "logo_height", "min": 32, "max": 80, "step": 2, "unit": "px", "label": "Logo hoogte", "default": 56 },
+    { "type": "paragraph", "content": "Het logo staat in assets/gorre-logo.png (wit + goud op de blauwe balk). Vervang dat bestand om het logo te wijzigen." },
+    { "type": "header", "content": "Menu" },
+    { "type": "paragraph", "content": "Voeg per categorie een blok toe. Subcategorieën: één per regel in de vorm  Label | /collections/handle" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categorie",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Categorie" },
+        { "type": "url", "id": "link", "label": "Hoofdlink (collectie of pagina)" },
+        { "type": "text", "id": "description", "label": "Korte omschrijving (optioneel)" },
+        { "type": "textarea", "id": "sublinks", "label": "Subcategorieën", "info": "Eén per regel:  Label | /collections/handle" },
+        { "type": "checkbox", "id": "highlight", "label": "Goud accent", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "GORRÉ header" }]
+}
+{% endschema %}
